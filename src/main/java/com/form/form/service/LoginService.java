@@ -1,8 +1,9 @@
 package com.form.form.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.form.form.model.User;
 import com.form.form.repository.UserRepository;
@@ -13,18 +14,19 @@ public class LoginService {
     @Autowired
     public UserRepository userRepository;
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     public User register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(user.getPassword());
         return userRepository.save(user);
     }
 
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user;
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        return null;
+        if (!user.getPassword().equals(password)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
+        }
+        return user;
     }
 }

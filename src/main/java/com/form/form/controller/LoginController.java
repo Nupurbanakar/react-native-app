@@ -26,12 +26,12 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        User loggedInUser = loginService.login(user.getUsername(), user.getPassword()); 
+    public ResponseEntity<?> login(@RequestBody User user) {
+        User loggedInUser = loginService.login(user.getUsername(), user.getPassword());
         if (loggedInUser != null) {
-            return new ResponseEntity<>(loggedInUser, HttpStatus.OK);
+            return ResponseEntity.ok("Login successful");
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
 }
