@@ -20,32 +20,31 @@ A Spring Boot application with simple user registration and login functionality,
 - **User Login**: Enables users to log in with error handling for invalid credentials.
 
 ## Technologies Used
-- Java 22
+- Java
 - Spring Boot
   - Spring Web
   - Spring Boot Starter Actuator
 - Spring Security
-- JUnit & Mockito for unit testing
+- JUnit & Mockito
 
 ## Getting Started
 
 ### Prerequisites
-- Java 11 or higher
-- Maven 3.6.0 or higher
-- (Optional) Postman for testing API endpoints
+- Java 22
+- Gradle
 
 ### Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/form-application.git
+    git clone https://github.com/Nupurbanakar/react-native-app-backend.git
     cd form-application
     ```
 2. Build the application:
     ```bash
-    mvn clean install
+    ./gradlew clean build
     ```
 
 ### Running the Application
 To run the application locally:
 ```bash
-mvn spring-boot:run
+./gradlew bootRun
