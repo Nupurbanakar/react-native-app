@@ -3,14 +3,13 @@ package com.form.form.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.form.form.model.User;
 import com.form.form.service.LoginService;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,17 +20,13 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
-        User registeredUser = loginService.register(user); 
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+        User registeredUser = loginService.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        User loggedInUser = loginService.login(user.getUsername(), user.getPassword());
-        if (loggedInUser != null) {
-            return ResponseEntity.ok("Login successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        }
+    public ResponseEntity<String> login(@RequestBody User user) {
+        loginService.login(user.getUsername(), user.getPassword());
+        return ResponseEntity.ok("Login successful");
     }
 }
