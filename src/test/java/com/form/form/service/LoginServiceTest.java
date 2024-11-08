@@ -3,13 +3,12 @@ package com.form.form.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,7 +29,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testRegister() {
+    public void Should_Register() {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password123");
@@ -44,7 +43,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testLogin_UserNotFound() {
+    public void Should_Display_Login_UserNotFound() {
         String username = "nonExistentUser";
         String password = "password";
 
@@ -59,7 +58,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testLogin_InvalidPassword() {
+    public void Should_Display_Login_InvalidPassword() {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password123");
@@ -75,7 +74,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testLogin_Success() {
+    public void Should_Display_Login_Success() {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password123");

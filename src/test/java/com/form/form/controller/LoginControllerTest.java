@@ -1,23 +1,19 @@
 package com.form.form.controller;
 
+import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.server.ResponseStatusException;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.form.form.model.User;
@@ -32,11 +28,8 @@ public class LoginControllerTest {
     @MockBean
     private LoginService loginService;
 
-    @InjectMocks
-    private LoginController loginController;
-
     @Test
-    public void testRegister() throws Exception {
+    public void Should_Register() throws Exception {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password123");
@@ -51,7 +44,7 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLogin_Success() throws Exception {
+    public void Should_Display_Login_Success() throws Exception {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password123");
@@ -66,7 +59,7 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLogin_UserNotFound() throws Exception {
+    public void Should_Display_Login_UserNotFound() throws Exception {
         when(loginService.login("nonExistentUser", "password"))
                 .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
@@ -77,7 +70,7 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLogin_InvalidPassword() throws Exception {
+    public void Should_Display_Login_InvalidPassword() throws Exception {
         when(loginService.login("testUser", "wrongPassword"))
                 .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password"));
 
